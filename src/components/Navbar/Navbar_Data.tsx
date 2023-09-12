@@ -12,7 +12,7 @@ export const Navbar_data = [
     url: "/enemies",
   },
   {
-    title: "My List",
-    url: "/mylist",
+    title: "Team Builder",
+    url: "/teambuilder",
   },
 ];

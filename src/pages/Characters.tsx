@@ -1,7 +1,10 @@
-import { fetchListOfCharacters, TableData } from "../services/characterService";
+import {
+  fetchListOfCharacters,
+  CharacterData,
+} from "../services/characterService";
 import { useEffect, useState } from "react";
 const Characters = () => {
-  const [data, setData] = useState<TableData[]>([]);
+  const [data, setData] = useState<CharacterData[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -35,7 +38,7 @@ const Characters = () => {
         <tbody>
           {data.map((data) => (
             <tr key={data.id}>
-              <td>{data.Name}</td>
+              <td className="character-name">{data.Name}</td>
               <td>
                 <img src={data.ImageUrl}></img>
               </td>

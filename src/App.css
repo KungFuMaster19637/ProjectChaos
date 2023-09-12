@@ -84,6 +84,13 @@ td img {
 .enemy-typing img {
   width: 10%;
 }
+
+.character-name {
+  font-size: 2vw;
+}
+.enemy-name {
+  font-size: 1vw;
+}
 /* Responsive Table on Small Screens */
 @media screen and (max-width: 600px) {
   .table {

@@ -1,0 +1,50 @@
+.character-picker {
+  text-align: center;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.character-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 2% auto;
+}
+
+.character {
+  width: 10%;
+  cursor: pointer;
+  padding: 10px;
+  margin: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.character.selected {
+  background-color: #3498db;
+  color: #fff;
+}
+
+.character-selected img {
+  width: 100%;
+}
+
+.selected-characters {
+  margin: 2%;
+  /* border: 1px solid;
+  border-radius: 5px; */
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  list-style: none;
+  justify-content: center;
+}
+
+.close {
+  font-weight: bold;
+  font-size: 150%;
+  margin-right: 5%;
+}
+
+.team-container {
+}

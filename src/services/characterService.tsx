@@ -7,7 +7,7 @@ const supabaseKey =
 const supabase = createClient(supabaseUrl, supabaseKey);
 const characterTable = "Characters";
 
-export interface TableData {
+export interface CharacterData {
   id: number;
   Name: string;
   Element: string;
@@ -15,7 +15,7 @@ export interface TableData {
   ImageUrl: string;
 }
 
-export async function fetchListOfCharacters(): Promise<TableData[]> {
+export async function fetchListOfCharacters(): Promise<CharacterData[]> {
   try {
     const { data, error } = await supabase
       .from(characterTable)

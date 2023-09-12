@@ -36,7 +36,7 @@ const Enemies = () => {
         <tbody>
           {data.map((enemy) => (
             <tr key={enemy.id}>
-              <td>{enemy.Name}</td>
+              <td className="enemy-name">{enemy.Name}</td>
               <td className="enemy-image">
                 <img src={enemy.ImageUrl}></img>
               </td>

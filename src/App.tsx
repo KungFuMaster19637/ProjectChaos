@@ -6,6 +6,7 @@ import NavBar from "./components/Navbar/Navbar";
 import Home from "./pages/Home";
 import Characters from "./pages/Characters";
 import Enemies from "./pages/Enemies";
+import TeamBuilder from "./pages/Teambuilder/TeamBuilder";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -18,6 +19,7 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/characters" element={<Characters />} />
           <Route path="/enemies" element={<Enemies />} />
+          <Route path="/teambuilder" element={<TeamBuilder />} />
         </Routes>
       </div>
     </>
