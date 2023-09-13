@@ -4,6 +4,8 @@ import {
   CharacterData,
 } from "../../services/characterService";
 import "./TeamBuilder.css";
+import { getCounters, rateTeam } from "../../services/teambuilderService";
+import { fetchListOfCounterEnemies } from "../../services/enemyService";
 import CharacterComponent from "../../components/CharacterComponent/CharacterComponent";
 import TeamComponent from "../../components/TeamComponent/TeamComponent";
 
@@ -26,7 +28,6 @@ const TeamBuilder: React.FC = () => {
     // Create an array with 8 instances of dummyCharacter
     const dummyCharactersArray: CharacterData[] = Array(4).fill(dummyCharacter);
     setSelectedCharacters(dummyCharactersArray);
-    console.log(selectedCharacters);
   }, []);
 
   useEffect(() => {
@@ -34,8 +35,6 @@ const TeamBuilder: React.FC = () => {
       try {
         const tableData = await fetchListOfCharacters();
         setData(tableData);
-        // console.log(tableData);
-        // console.log(data);
       } catch (error) {
         // Handle error if needed
       }
@@ -69,18 +68,28 @@ const TeamBuilder: React.FC = () => {
     setSelectedCharacters(updatedTeam);
   };
 
+  const getElementsList = async () => {
+    const counterElements = getCounters(selectedCharacters);
+    console.log("counter elements" + counterElements);
+    const fetchData = async () => {
+      try {
+        const tableData = await fetchListOfCounterEnemies(counterElements);
+        console.log(tableData);
+      } catch (error) {
+        // Handle error if needed
+      }
+    };
+
+    fetchData();
+  };
+
   return (
     <div className="character-picker">
       <h2>Selected Characters</h2>
       <div className="team-container">
-        <ul className="selected-characters">
+        <ul className="team-characters">
           {selectedCharacters.map((character, index) => (
-            <li
-              key={index}
-              className={`character ${
-                selectedCharacters.includes(character) ? "selected" : ""
-              }`}
-            >
+            <li key={index} className={`character`}>
               <TeamComponent
                 character={character}
                 onRemove={removeTeamMember}
@@ -88,12 +97,8 @@ const TeamBuilder: React.FC = () => {
             </li>
           ))}
         </ul>
-        {/* <div className="team">
-          <div className="character-selected">
-            <img src=""></img>
-            <span className="close">&times;</span>
-          </div>
-        </div> */}
+        <button onClick={() => rateTeam(selectedCharacters)}>Rate Team</button>
+        <button onClick={() => getElementsList()}>Calculate Counters</button>
       </div>
       <h2>Character Picker</h2>
       <div className="character-list">

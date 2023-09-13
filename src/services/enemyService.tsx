@@ -31,4 +31,26 @@ export async function fetchListOfEnemies(): Promise<EnemyData[]> {
     throw error;
   }
 }
+
+export async function fetchListOfCounterEnemies(
+  elements: string[]
+): Promise<EnemyData[]> {
+  try {
+    const { data, error } = await supabase.from(EnemyTable).select("*");
+    if (error) {
+      throw error;
+    }
+    const filteredData = data.filter((enemy) => {
+      const resistance = enemy.Resistance;
+      return elements.every((element) =>
+        Object.prototype.hasOwnProperty.call(resistance, element)
+      );
+    });
+    console.log(filteredData);
+    return filteredData;
+  } catch (error) {
+    console.error("Error fetching data:" + error);
+    throw error;
+  }
+}
 export default supabase;
