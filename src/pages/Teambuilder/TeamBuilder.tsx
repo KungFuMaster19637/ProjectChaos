@@ -5,25 +5,34 @@ import {
 } from "../../services/characterService";
 import "./TeamBuilder.css";
 import { getCounters, rateTeam } from "../../services/teambuilderService";
-import { fetchListOfCounterEnemies } from "../../services/enemyService";
+import {
+  EnemyData,
+  fetchListOfCounterEnemies,
+} from "../../services/enemyService";
 import CharacterComponent from "../../components/CharacterComponent/CharacterComponent";
 import TeamComponent from "../../components/TeamComponent/TeamComponent";
+import EnemyTableComponent from "../../components/EnemyTableComponent/EnemyTableComponent";
+
+const dummyCharacter: CharacterData = {
+  id: 0,
+  Name: "Empty Slot",
+  Element: "None",
+  Path: "None",
+  ImageUrl: "src/assets/images/questionmarkwhite.png",
+};
 
 const TeamBuilder: React.FC = () => {
+  // #region useStates
   const [selectedCharacters, setSelectedCharacters] = useState<CharacterData[]>(
     []
   );
   const [data, setData] = useState<CharacterData[]>([]);
+  const [enemyTableData, setTableData] = useState<EnemyData[]>([]);
+  const [showTable, setShowTable] = useState(false);
 
-  // const [selectedTeamSpot, setSelectedTeamSpot] = useState<number>;
-  const dummyCharacter: CharacterData = {
-    id: 0,
-    Name: "Empty Slot",
-    Element: "None",
-    Path: "None",
-    ImageUrl: "src/assets/images/questionmarkwhite.png",
-  };
+  // #endregion
 
+  // #region useEffects
   useEffect(() => {
     // Create an array with 8 instances of dummyCharacter
     const dummyCharactersArray: CharacterData[] = Array(4).fill(dummyCharacter);
@@ -42,7 +51,9 @@ const TeamBuilder: React.FC = () => {
 
     fetchData();
   }, []);
+  // #endregion
 
+  // #region Handle clicks
   const handleCharacterClick = (character: CharacterData) => {
     const dummyIndex = selectedCharacters.findIndex((char) => char.id === 0);
 
@@ -67,6 +78,7 @@ const TeamBuilder: React.FC = () => {
     updatedTeam[updatedTeam.indexOf(character)] = dummyCharacter;
     setSelectedCharacters(updatedTeam);
   };
+  // #endregion
 
   const getElementsList = async () => {
     const counterElements = getCounters(selectedCharacters);
@@ -74,13 +86,27 @@ const TeamBuilder: React.FC = () => {
     const fetchData = async () => {
       try {
         const tableData = await fetchListOfCounterEnemies(counterElements);
-        console.log(tableData);
+        setTableData(tableData);
+        setShowTable(true);
+        scrollToTable();
       } catch (error) {
         // Handle error if needed
       }
     };
 
     fetchData();
+  };
+
+  //Scroll to table effect
+  const scrollToTable = () => {
+    const tableElement = document.getElementById("counter-table");
+    if (tableElement) {
+      const yOffset = -100; // Adjust this value as needed to set the desired height above the table
+      const y =
+        tableElement.getBoundingClientRect().top + window.scrollY + yOffset;
+
+      window.scrollTo({ top: y, behavior: "smooth" });
+    }
   };
 
   return (
@@ -114,6 +140,12 @@ const TeamBuilder: React.FC = () => {
           </div>
         ))}
       </div>
+      {showTable && (
+        <div id="counter-table">
+          <h2>Enemy Table</h2>
+          <EnemyTableComponent enemyData={enemyTableData}></EnemyTableComponent>
+        </div>
+      )}
     </div>
   );
 };

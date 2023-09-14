@@ -36,7 +36,10 @@ export async function fetchListOfCounterEnemies(
   elements: string[]
 ): Promise<EnemyData[]> {
   try {
-    const { data, error } = await supabase.from(EnemyTable).select("*");
+    const { data, error } = await supabase
+      .from(EnemyTable)
+      .select("*")
+      .order("Name");
     if (error) {
       throw error;
     }
