@@ -142,7 +142,7 @@ const TeamBuilder: React.FC = () => {
       </div>
       {showTable && (
         <div id="counter-table">
-          <h2>Enemy Table</h2>
+          <h2>Enemies that you can't weakness break</h2>
           <EnemyTableComponent enemyData={enemyTableData}></EnemyTableComponent>
         </div>
       )}

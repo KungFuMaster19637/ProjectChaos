@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { useState } from "react";
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import NavBar from "./components/Navbar/Navbar";
@@ -9,8 +8,6 @@ import Enemies from "./pages/Enemies";
 import TeamBuilder from "./pages/Teambuilder/TeamBuilder";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <>
       <div>
