@@ -13,6 +13,7 @@ export interface CharacterData {
   Element: string;
   Path: string;
   ImageUrl: string;
+  Rating: { type: string; value: number }[];
 }
 
 export async function fetchListOfCharacters(): Promise<CharacterData[]> {

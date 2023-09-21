@@ -21,6 +21,7 @@ const dummyCharacter: CharacterData = {
   Element: "None",
   Path: "None",
   ImageUrl: getQuestionmarkImage(),
+  Rating: [{ type: "", value: 0 }],
 };
 
 const TeamBuilder: React.FC = () => {

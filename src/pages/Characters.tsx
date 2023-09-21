@@ -36,6 +36,7 @@ const Characters = () => {
             <th>Image</th>
             <th>Element</th>
             <th>Path</th>
+            <th>Rating</th>
           </tr>
         </thead>
         <tbody>
@@ -55,6 +56,13 @@ const Characters = () => {
               <td>
                 {" "}
                 <img src={getPathImage(data.Path)}></img>
+              </td>
+              <td key={`resistance-${data.id}`} className="enemy-typing">
+                {Object.entries(data.Rating).map((criteria) => (
+                  <p key={`resistance-${criteria}-${data.id}`}>
+                    {criteria[0]} : {criteria[1].toString()}
+                  </p>
+                ))}
               </td>
             </tr>
           ))}
