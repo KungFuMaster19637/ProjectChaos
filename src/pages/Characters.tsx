@@ -2,7 +2,10 @@ import {
   fetchListOfCharacters,
   CharacterData,
 } from "../services/characterService";
+import { getElementImage, getPathImage } from "../services/imageService";
+("../services/imageService");
 import { useEffect, useState } from "react";
+
 const Characters = () => {
   const [data, setData] = useState<CharacterData[]>([]);
 
@@ -44,13 +47,14 @@ const Characters = () => {
               </td>
               <td>
                 <img
-                  src={`src/assets/images/elements/${data.Element}.webp`}
+                  // src={`src/assets/images/elements/${data.Element}.webp`}
+                  src={getElementImage(data.Element)}
                 ></img>
                 {/* {data.Element} */}
               </td>
               <td>
                 {" "}
-                <img src={`src/assets/images/paths/${data.Path}.webp`}></img>
+                <img src={getPathImage(data.Path)}></img>
               </td>
             </tr>
           ))}

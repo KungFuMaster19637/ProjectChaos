@@ -1,4 +1,5 @@
 import { EnemyData } from "../../services/enemyService";
+import { getElementImage } from "../../services/imageService";
 
 const EnemyTableComponent: React.FC<{ enemyData: EnemyData[] }> = ({
   enemyData,
@@ -28,7 +29,7 @@ const EnemyTableComponent: React.FC<{ enemyData: EnemyData[] }> = ({
               {Object.keys(enemy.Weakness).map((element) => (
                 <img
                   key={`weakness-${element}-${enemy.id}`}
-                  src={`src/assets/images/elements/${element}.webp`}
+                  src={getElementImage(element)}
                   alt={`Weakness: ${element}`}
                 />
               ))}
@@ -37,7 +38,7 @@ const EnemyTableComponent: React.FC<{ enemyData: EnemyData[] }> = ({
               {Object.keys(enemy.Resistance).map((element) => (
                 <img
                   key={`resistance-${element}-${enemy.id}`}
-                  src={`src/assets/images/elements/${element}.webp`}
+                  src={getElementImage(element)}
                   alt={`Resistance: ${element}`}
                 />
               ))}

@@ -13,12 +13,14 @@ import CharacterComponent from "../../components/CharacterComponent/CharacterCom
 import TeamComponent from "../../components/TeamComponent/TeamComponent";
 import EnemyTableComponent from "../../components/EnemyTableComponent/EnemyTableComponent";
 
+import { getQuestionmarkImage } from "../../services/imageService";
+
 const dummyCharacter: CharacterData = {
   id: 0,
   Name: "Empty Slot",
   Element: "None",
   Path: "None",
-  ImageUrl: "src/assets/images/questionmarkwhite.png",
+  ImageUrl: getQuestionmarkImage(),
 };
 
 const TeamBuilder: React.FC = () => {
