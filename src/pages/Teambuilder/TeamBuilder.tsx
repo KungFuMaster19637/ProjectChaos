@@ -21,7 +21,13 @@ const dummyCharacter: CharacterData = {
   Element: "None",
   Path: "None",
   ImageUrl: getQuestionmarkImage(),
-  Rating: [{ type: "", value: 0 }],
+  Rating: {
+    ST: 0,
+    AOE: 0,
+    Utility: 0,
+    Toughness: 0,
+    Protection: 0,
+  },
 };
 
 const TeamBuilder: React.FC = () => {
@@ -32,6 +38,9 @@ const TeamBuilder: React.FC = () => {
   const [data, setData] = useState<CharacterData[]>([]);
   const [enemyTableData, setTableData] = useState<EnemyData[]>([]);
   const [showTable, setShowTable] = useState(false);
+  const [rating, setRating] = useState<{ [type: string]: number }>(
+    dummyCharacter.Rating
+  );
 
   // #endregion
 
@@ -100,6 +109,14 @@ const TeamBuilder: React.FC = () => {
     fetchData();
   };
 
+  const getTeamRating = async () => {
+    try {
+      const rating = rateTeam(selectedCharacters);
+      setRating(rating);
+    } catch (error) {
+      // Handle error if needed
+    }
+  };
   //Scroll to table effect
   const scrollToTable = () => {
     const tableElement = document.getElementById("counter-table");
@@ -126,7 +143,7 @@ const TeamBuilder: React.FC = () => {
             </li>
           ))}
         </ul>
-        <button onClick={() => rateTeam(selectedCharacters)}>Rate Team</button>
+        <button onClick={() => getTeamRating()}>Rate Team</button>
         <button onClick={() => getElementsList()}>Calculate Counters</button>
       </div>
       <h2>Character Picker</h2>
@@ -145,6 +162,12 @@ const TeamBuilder: React.FC = () => {
       </div>
       {showTable && (
         <div id="counter-table">
+          <h2>Team Rating</h2>
+          {Object.entries(rating).map(([type, value]) => (
+            <p key={type}>
+              {type}: {value}
+            </p>
+          ))}
           <h2>Enemies that you can't weakness break</h2>
           <EnemyTableComponent enemyData={enemyTableData}></EnemyTableComponent>
         </div>

@@ -4,11 +4,12 @@ export interface CharacterData {
   Element: string;
   Path: string;
   ImageUrl: string;
+  Rating: { [type: string]: number };
 }
 
 export const rateTeam = (characterData: CharacterData[]) => {
   const rating = {
-    Cleanse: 0,
+    Protection: 0,
     Survivability: 0,
     Utility: 0,
     AOE: 0,
@@ -16,22 +17,27 @@ export const rateTeam = (characterData: CharacterData[]) => {
   };
 
   characterData.map((character) => {
-    const checkDamage = ["Destruction", "Hunt", "Erudition", "Nihlity"];
-    if (checkDamage.includes(character.Path)) {
-      // The character's Path is one of the paths to check
-      // You can perform your logic here
-      rating.ST++;
-    }
+    console.log(character.Rating);
 
-    const checkSurvive = ["Preservation, Abundance"];
-    if (checkSurvive.includes(character.Path)) {
-      rating.Survivability++;
-    }
-
-    const checkUtility = ["Harmony", "Nihility"];
-    if (checkUtility.includes(character.Path)) {
-      rating.Utility++;
-    }
+    Object.entries(character.Rating).map(([criteria, value]) => {
+      switch (criteria) {
+        case "ST":
+          rating.ST += value;
+          break;
+        case "AOE":
+          rating.AOE += value;
+          break;
+        case "Utility":
+          rating.Utility += value;
+          break;
+        case "Toughness":
+          rating.Survivability += value;
+          break;
+        case "Protection":
+          rating.Protection += value;
+          break;
+      }
+    });
   });
   console.log(rating);
   return rating;
